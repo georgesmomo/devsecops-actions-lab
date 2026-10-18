@@ -1,0 +1,57 @@
+# IA dans la CI : revue automatique de PR via GitHub Copilot (actions/ai-inference).
+# Prerequis : un secret de depot COPILOT_PAT (token avec acces Copilot). Sans lui, le job se contente d'un avertissement.
+name: AI PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    # Les PR venant de forks n'ont pas acces aux secrets : on ne lance pas l'IA dessus
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    env:
+      COPILOT_PAT: ${{ secrets.COPILOT_PAT }}
+    steps:
+      - name: Secret absent ?
+        if: env.COPILOT_PAT == ''
+        run: echo "::warning title=AI review::Ajoute le secret COPILOT_PAT (Settings > Secrets and variables > Actions) pour activer la revue IA."
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: env.COPILOT_PAT != ''
+        with:
+          fetch-depth: 0
+
+      - name: Diff de la PR
+        if: env.COPILOT_PAT != ''
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: git diff "origin/${BASE_REF}...HEAD" | head -c 60000 > diff.txt
+
+      - name: Installer Copilot CLI
+        if: env.COPILOT_PAT != ''
+        run: npm install -g @github/copilot
+
+      - name: Revue IA
+        id: ai
+        if: env.COPILOT_PAT != ''
+        uses: actions/ai-inference@2c43c91ae16266ca159d311430343c67a5ffa222 # v3
+        with:
+          prompt-file: .github/prompts/pr-review.prompt.yml
+          file_input: |
+            diff: ./diff.txt
+          model: ""
+        env:
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_PAT }}
+
+      - name: Commenter la PR
+        if: env.COPILOT_PAT != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: gh pr comment "$PR" --body-file "${{ steps.ai.outputs.response-file }}"
