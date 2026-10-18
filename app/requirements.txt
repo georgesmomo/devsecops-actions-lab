@@ -1,0 +1,3 @@
+flask==3.1.3
+# Version volontairement ancienne (CVE connue) : Dependabot et Trivy vont la signaler -> exercice du guide
+gunicorn==22.0.0
