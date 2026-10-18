@@ -1,0 +1,14 @@
+name: Bug
+description: Signaler un dysfonctionnement
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: Que se passe-t-il ?
+    validations:
+      required: true
+  - type: input
+    id: run
+    attributes:
+      label: Lien du run GitHub Actions (si applicable)
