@@ -1,0 +1,4 @@
+# Les fichiers sensibles exigent la revue du proprietaire (avec la regle "Require review from Code Owners").
+*                       @georgesmomo
+/.github/               @georgesmomo
+/Dockerfile             @georgesmomo
