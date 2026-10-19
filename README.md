@@ -160,7 +160,7 @@ Always check the [official GH-200 study guide](https://learn.microsoft.com/crede
 | Course | Lab repository | Interactive course |
 |---|---|---|
 | GitHub Actions DevSecOps (this one) | [georgesmomo/devsecops-actions-lab](https://github.com/georgesmomo/devsecops-actions-lab) | [Open](https://georgesmomo.github.io/devsecops-actions-lab/) |
-| GitLab CI/CD DevSecOps | [georges.momo.n8n/devsecops-gitlab-lab](https://gitlab.com/georges.momo.n8n/devsecops-gitlab-lab) | [Open](__GITLAB_PAGES_URL__) |
+| GitLab CI/CD DevSecOps | [georges.momo.n8n/devsecops-gitlab-lab](https://gitlab.com/georges.momo.n8n/devsecops-gitlab-lab) | [Open](https://devsecops-gitlab-lab-602e5f.gitlab.io/) |
 | Kubernetes + Helm | [georgesmomo/k8s-helm-lab](https://github.com/georgesmomo/k8s-helm-lab) | [Open](https://georgesmomo.github.io/k8s-helm-lab/) |
 
 ## Contributing
