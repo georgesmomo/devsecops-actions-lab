@@ -1,7 +1,7 @@
-## Quoi / pourquoi
+## What / why
 
-## Checklist DevSecOps
-- [ ] Tests ajoutes ou mis a jour
-- [ ] Aucun secret dans le code
-- [ ] Nouvelles actions epinglees par SHA
-- [ ] Permissions des workflows au minimum
+## DevSecOps checklist
+- [ ] Tests added or updated
+- [ ] No secret in the code
+- [ ] New actions pinned by SHA
+- [ ] Minimal workflow permissions

@@ -1,4 +1,4 @@
-# SAST : CodeQL analyse le code Python ET les workflows GitHub Actions eux-memes.
+# SAST: CodeQL analyzes the Python code AND the GitHub Actions workflows themselves.
 name: CodeQL
 
 on:
@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: "27 3 * * 1"   # chaque lundi 03:27 UTC (nouvelles regles = nouvelles alertes)
+    - cron: "27 3 * * 1"   # every Monday 03:27 UTC (new rules = new alerts)
 
 permissions:
   contents: read
@@ -19,7 +19,7 @@ jobs:
     permissions:
       contents: read
       actions: read
-      security-events: write   # pour publier les alertes dans l'onglet Security
+      security-events: write   # publish alerts to the Security tab
     strategy:
       fail-fast: false
       matrix:

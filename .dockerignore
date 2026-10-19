@@ -6,3 +6,4 @@ k8s
 **/test_*.py
 **/requirements-dev.txt
 *.md
+docs

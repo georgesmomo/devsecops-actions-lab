@@ -1,7 +1,7 @@
-"""Mini API du labo DevSecOps.
+"""Tiny API for the DevSecOps lab.
 
-Modifie MESSAGE ou VERSION, pousse sur main : le pipeline
-build -> scan -> signe -> deploie automatiquement.
+Change MESSAGE or VERSION and push to main: the pipeline
+builds, scans, signs and deploys it automatically.
 """
 
 import os

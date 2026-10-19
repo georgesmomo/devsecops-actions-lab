@@ -1,14 +1,14 @@
 name: Bug
-description: Signaler un dysfonctionnement
+description: Report a malfunction
 labels: [bug]
 body:
   - type: textarea
     id: what
     attributes:
-      label: Que se passe-t-il ?
+      label: What is happening?
     validations:
       required: true
   - type: input
     id: run
     attributes:
-      label: Lien du run GitHub Actions (si applicable)
+      label: Link to the GitHub Actions run (if any)

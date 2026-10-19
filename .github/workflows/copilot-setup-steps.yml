@@ -1,5 +1,5 @@
-# Prepare l'environnement du Copilot coding agent (agent IA qui code dans un runner GitHub Actions).
-# Le job DOIT s'appeler "copilot-setup-steps".
+# Prepares the environment of the Copilot coding agent (an AI agent that codes inside a GitHub Actions runner).
+# The job MUST be named "copilot-setup-steps".
 name: Copilot Setup Steps
 
 on:

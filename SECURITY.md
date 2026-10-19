@@ -1,2 +1,2 @@
-# Politique de securite
-Signale une vulnerabilite via l'onglet **Security > Report a vulnerability** (signalement prive), pas via une issue publique.
+# Security policy
+Report a vulnerability through **Security > Report a vulnerability** (private reporting), not through a public issue.

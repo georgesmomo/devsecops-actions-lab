@@ -1,5 +1,5 @@
-# IA dans la CI : revue automatique de PR via GitHub Copilot (actions/ai-inference).
-# Prerequis : un secret de depot COPILOT_PAT (token avec acces Copilot). Sans lui, le job se contente d'un avertissement.
+# AI in CI: automatic pull request review with GitHub Copilot (actions/ai-inference).
+# Prerequisite: a repository secret COPILOT_PAT (token with Copilot access). Without it, the job only prints a warning.
 name: AI PR Review
 
 on:
@@ -12,32 +12,32 @@ permissions:
 
 jobs:
   review:
-    # Les PR venant de forks n'ont pas acces aux secrets : on ne lance pas l'IA dessus
+    # Pull requests from forks get no secrets: the AI review does not run on them
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     env:
       COPILOT_PAT: ${{ secrets.COPILOT_PAT }}
     steps:
-      - name: Secret absent ?
+      - name: Secret missing?
         if: env.COPILOT_PAT == ''
-        run: echo "::warning title=AI review::Ajoute le secret COPILOT_PAT (Settings > Secrets and variables > Actions) pour activer la revue IA."
+        run: echo "::warning title=AI review::Add the COPILOT_PAT secret (Settings > Secrets and variables > Actions) to enable the AI review."
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         if: env.COPILOT_PAT != ''
         with:
           fetch-depth: 0
 
-      - name: Diff de la PR
+      - name: Pull request diff
         if: env.COPILOT_PAT != ''
         env:
           BASE_REF: ${{ github.base_ref }}
         run: git diff "origin/${BASE_REF}...HEAD" | head -c 60000 > diff.txt
 
-      - name: Installer Copilot CLI
+      - name: Install Copilot CLI
         if: env.COPILOT_PAT != ''
         run: npm install -g @github/copilot
 
-      - name: Revue IA
+      - name: AI review
         id: ai
         if: env.COPILOT_PAT != ''
         uses: actions/ai-inference@2c43c91ae16266ca159d311430343c67a5ffa222 # v3
@@ -49,7 +49,7 @@ jobs:
         env:
           COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_PAT }}
 
-      - name: Commenter la PR
+      - name: Comment on the pull request
         if: env.COPILOT_PAT != ''
         env:
           GH_TOKEN: ${{ github.token }}

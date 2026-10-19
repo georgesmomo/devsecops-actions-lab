@@ -1,24 +1,24 @@
-# Action COMPOSITE locale : reutilisable dans n'importe quel job via `uses: ./.github/actions/smoke-test`
+# Local COMPOSITE action: reusable in any job via `uses: ./.github/actions/smoke-test`
 name: Smoke test Kubernetes
-description: Expose un Service via port-forward et verifie la reponse HTTP
+description: Exposes a Service through port-forward and checks the HTTP response
 inputs:
   service:
-    description: Nom du Service Kubernetes
+    description: Kubernetes Service name
     required: true
   path:
-    description: Chemin HTTP a tester
+    description: HTTP path to test
     default: /healthz
   expected:
-    description: Texte attendu dans la reponse
+    description: Text expected in the response
     default: ok
 outputs:
   response:
-    description: Corps de la reponse HTTP
+    description: HTTP response body
     value: ${{ steps.call.outputs.response }}
 runs:
   using: composite
   steps:
-    - name: Appel HTTP
+    - name: HTTP call
       id: call
       shell: bash
       env:
@@ -31,10 +31,10 @@ runs:
           if body=$(curl -fsS "http://127.0.0.1:18080${URL_PATH}"); then break; fi
           sleep 2
         done
-        echo "Reponse : ${body}"
+        echo "Response: ${body}"
         echo "response=${body}" >> "$GITHUB_OUTPUT"
         if [[ "${body}" != *"${EXPECTED}"* ]]; then
-          echo "::error title=Smoke test::reponse inattendue sur ${URL_PATH}"
+          echo "::error title=Smoke test::unexpected response on ${URL_PATH}"
           exit 1
         fi
-        echo "::notice title=Smoke test::${SVC}${URL_PATH} repond correctement"
+        echo "::notice title=Smoke test::${SVC}${URL_PATH} responds correctly"

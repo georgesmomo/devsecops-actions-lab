@@ -1,7 +1,7 @@
-# Instructions pour GitHub Copilot (chat, revue de code, coding agent)
+# Instructions for GitHub Copilot (chat, code review, coding agent)
 
-- Application : API Flask dans `app/`, image Docker multi-stage, deploiement Kubernetes `k8s/`.
-- Toute nouvelle action GitHub doit etre epinglee par SHA complet avec le tag en commentaire.
-- `permissions:` au minimum dans chaque workflow ; jamais `write-all`.
-- Ne jamais ecrire de secret en clair : utiliser `secrets.*` ou OIDC.
-- Avant de proposer un commit : `ruff check app && ruff format app && pytest app`.
+- Application: Flask API in `app/`, multi-stage Docker image, Kubernetes deployment in `k8s/`.
+- Every new GitHub Action must be pinned to a full commit SHA, with the tag as a comment.
+- Minimal `permissions:` in every workflow; never `write-all`.
+- Never write a secret in clear text: use `secrets.*` or OIDC.
+- Before proposing a commit: `ruff check app && ruff format app && pytest app`.

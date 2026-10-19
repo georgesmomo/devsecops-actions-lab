@@ -1,4 +1,4 @@
-# Dependabot version updates : ouvre des PR de mise a jour chaque semaine.
+# Dependabot version updates: opens update pull requests every week.
 version: 2
 updates:
   - package-ecosystem: pip

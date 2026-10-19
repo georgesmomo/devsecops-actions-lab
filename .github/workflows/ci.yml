@@ -1,15 +1,15 @@
-# CI : qualite + securite du code. Declenchee sur les PR, ou appelee par le pipeline principal.
+# CI: code quality + code security. Runs on pull requests, or is called by the main pipeline.
 name: CI
 
 on:
   pull_request:
     branches: [main]
     paths-ignore: ["**.md", "docs/**"]
-  workflow_call:          # rend ce workflow reutilisable (appele par devsecops.yml)
-  workflow_dispatch:      # bouton "Run workflow" dans l'onglet Actions
+  workflow_call:          # makes this workflow reusable (called by devsecops.yml)
+  workflow_dispatch:      # the "Run workflow" button in the Actions tab
 
 permissions:
-  contents: read          # moindre privilege par defaut pour GITHUB_TOKEN
+  contents: read          # least privilege by default for GITHUB_TOKEN
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -50,14 +50,14 @@ jobs:
           cache-dependency-path: app/requirements-dev.txt
       - run: pip install -r requirements-dev.txt
       - run: pytest --junitxml=report-${{ matrix.python }}.xml
-      - name: Publier le rapport de tests
+      - name: Upload the test report
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: test-report-${{ matrix.python }}
           path: app/report-${{ matrix.python }}.xml
           retention-days: 7
-      - name: Resume du job
+      - name: Job summary
         if: always()
         run: echo "### Tests Python ${{ matrix.python }} - ${{ job.status }}" >> "$GITHUB_STEP_SUMMARY"
 
@@ -66,11 +66,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write   # gitleaks commente la PR si un secret est trouve
+      pull-requests: write   # gitleaks comments on the pull request when it finds a secret
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          fetch-depth: 0       # tout l'historique : un secret supprime reste dans git
+          fetch-depth: 0       # the whole history: a deleted secret is still in git
       - uses: gitleaks/gitleaks-action@e0c47f4f8be36e29cdc102c57e68cb5cbf0e8d1e # v3.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

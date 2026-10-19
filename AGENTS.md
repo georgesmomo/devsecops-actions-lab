@@ -1,3 +1,3 @@
 # AGENTS.md
-Contexte pour les agents IA (Copilot coding agent, Claude, etc.) : voir `.github/copilot-instructions.md`.
-Commandes : `pip install -r app/requirements-dev.txt`, `pytest app`, `ruff check app`.
+Context for AI agents (Copilot coding agent, Claude, etc.): see `.github/copilot-instructions.md`.
+Commands: `pip install -r app/requirements-dev.txt`, `pytest app`, `ruff check app`.
