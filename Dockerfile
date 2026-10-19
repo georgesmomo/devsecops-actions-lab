@@ -1,12 +1,12 @@
 # syntax=docker/dockerfile:1
 # ---------- Stage 1: build the dependencies ----------
-FROM python:3.13-slim AS build
+FROM python:3.14-slim AS build
 WORKDIR /src
 COPY app/requirements.txt .
 RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 # ---------- Stage 2: minimal final image ----------
-FROM python:3.13-slim
+FROM python:3.14-slim
 LABEL org.opencontainers.image.source="https://github.com/georgesmomo/devsecops-actions-lab" \
       org.opencontainers.image.description="Labo GitHub Actions DevSecOps" \
       org.opencontainers.image.licenses="MIT"
